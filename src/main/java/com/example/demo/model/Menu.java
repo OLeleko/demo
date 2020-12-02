@@ -15,7 +15,7 @@ public class Menu extends AbstractBaseEntity{
 
     @Column(name = "regist_date", nullable = false)
     @NotNull
-    private LocalDateTime regist_date;
+    private LocalDate regist_date;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "restaurant_id", nullable = false)
@@ -27,21 +27,21 @@ public class Menu extends AbstractBaseEntity{
     @OrderBy("price DESC")
     private List<Meal> meals;
 
-    private LocalDate date_registration;
+    /*private LocalDate date_registration;*/
 
     public Menu() {
     }
 
-    public Menu(Integer id, @NotNull LocalDateTime regist_date) {
+    public Menu(Integer id, @NotNull LocalDate regist_date) {
         super(id);
         this.regist_date = regist_date;
     }
 
-    public LocalDateTime getRegist_date() {
+    public LocalDate getRegist_date() {
         return regist_date;
     }
 
-    public void setRegist_date(LocalDateTime regist_date) {
+    public void setRegist_date(LocalDate regist_date) {
         this.regist_date = regist_date;
     }
 
@@ -57,13 +57,13 @@ public class Menu extends AbstractBaseEntity{
         return meals;
     }
 
-    public void setDate_registration(LocalDate date_registration) {
+   /* public void setDate_registration(LocalDate date_registration) {
         this.date_registration = regist_date.toLocalDate();
     }
 
     public LocalDate getDate_registration() {
         return date_registration;
-    }
+    }*/
 
     /* public LocalDate getDate(){
         return regist_date.toLocalDate();
