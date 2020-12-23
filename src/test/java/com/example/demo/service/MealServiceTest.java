@@ -19,7 +19,7 @@ public class MealServiceTest {
     @Autowired
     private MealService service;
 
-    @Test
+   @Test
     public void create() {
         Meal created = service.create(getNew(), MENU_ID);
         int newId = created.getId();

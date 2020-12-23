@@ -6,11 +6,16 @@ import com.example.demo.model.Vote;
 import com.example.demo.repository.MenuRepository;
 import com.example.demo.repository.UserRepository;
 import com.example.demo.repository.VoteRepository;
+import com.example.demo.util.NotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
+
+import static com.example.demo.model.AbstractBaseEntity.START_SEQ;
+import static com.example.demo.util.ValidationUtil.checkNotFoundWithId;
 
 @Service
 public class VoteService {
@@ -27,7 +32,7 @@ public class VoteService {
     }
 
     @Transactional
-    public Vote create(Vote vote, int user_id, int menu_id){
+    public Vote create(Vote vote, int menu_id,int user_id){
         if(!vote.isNew()){
             return null;
         }
@@ -38,20 +43,54 @@ public class VoteService {
         return voteRepository.save(vote);
     }
 
-    public Vote findById(int id){
-        return voteRepository.getById(id);
+    public Vote findById(int id, int user_id){
+        return voteRepository.getById(id, user_id);
     }
 
-    public List<Vote> findByDate(LocalDate date){
-        return voteRepository.getByDate(date);
+    public Vote findByDate(LocalDate date, int user_id){
+        return voteRepository.getByDate(date, user_id);
     }
-    @Transactional
-    public Vote update(Vote vote, int user_id, int menu_id){
-        if(vote.isNew() || vote.getUser().getId() != user_id){
+
+/*   @Transactional
+    public Vote update(Vote vote, int menu_id, int user_id){
+        LocalTime time = LocalTime.of(23,40,00);
+        if(LocalTime.now().isAfter(time)){
+            throw new NotFoundException("It's too late to update vote for today.");
+        }
+
+       Menu menu = menuRepository.getById(menu_id);
+        if(vote.isNew() || vote.getUser().getId() != user_id || menu == null){
             return null;
         }
-        Menu menu = menuRepository.getById(menu_id);
         vote.setMenu(menu);
         return vote;
+    }*/
+
+   @Transactional
+    public Vote update(int id, int menu_id, int user_id){
+        LocalTime time = LocalTime.of(23,50,00);
+        if(LocalTime.now().isAfter(time)){
+            throw new NotFoundException("It's too late to update vote for today.");
+        }
+        Vote vote = voteRepository.getById(id, user_id);
+        Menu menu = menuRepository.getById(menu_id);
+        if(vote == null || menu == null){
+            return null;
+        }
+        vote.setMenu(menu);
+        return vote;
+    }
+
+
+    public List<Vote> findAll(int user_id){
+        return voteRepository.getAll(user_id);
+    }
+
+    public List<Vote> findBetween(LocalDate start_date, LocalDate end_date, int user_id){
+       return voteRepository.getBetween(start_date, end_date, user_id);
+    }
+
+    public void delete(int id, int user_id){
+        checkNotFoundWithId(voteRepository.delete(id, user_id), id) ;
     }
 }

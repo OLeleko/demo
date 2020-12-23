@@ -6,6 +6,9 @@ import com.example.demo.repository.MealRepository;
 import com.example.demo.repository.MenuRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
+
+import static com.example.demo.util.ValidationUtil.checkNotFoundWithId;
 
 @Service
 public class MealService {
@@ -31,9 +34,24 @@ public class MealService {
     @Transactional
     public Meal findById(int id){
 
-        return mealRepository.getById(id);
-
+        /*return mealRepository.getById(id);*/
+        return mealRepository.findById(id)
+                .orElse(null);
     }
+
+    public void delete(int id){
+        checkNotFoundWithId(mealRepository.delete(id), id);
+    }
+
+    public void update(Meal meal){
+        Assert.notNull(meal, "meal must not be null");
+        mealRepository.save(meal);
+    }
+
+
+
+
+
 
 
 }
