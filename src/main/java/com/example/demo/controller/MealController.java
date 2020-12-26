@@ -13,7 +13,7 @@ import java.net.URI;
 import static com.example.demo.util.ValidationUtil.assureIdConsistent;
 
 @RestController
-@RequestMapping(value = "/meals", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/admin/meals", produces = MediaType.APPLICATION_JSON_VALUE)
 public class MealController {
 
     @Autowired

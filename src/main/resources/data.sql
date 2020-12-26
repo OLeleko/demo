@@ -5,11 +5,11 @@ DELETE FROM RESTAURANT;
 DELETE FROM USERS;
 
 INSERT INTO users (NAME, PASSWORD, REGISTERED, ENABLED, admin)
-VALUES ('user1', '12345', '2020-05-02', 'true', 'false'),
-       ('user2', '12365', '2020-06-11', 'true', 'false'),
-       ('user3', '12745', '2020-07-12', 'true', 'false'),
-       ('admin1', '52345', '2020-08-13', 'true', 'true'),
-       ('admin2', '17345', '2020-09-14', 'true', 'true');
+VALUES ('user1', '{noop}12345', '2020-05-02', 'true', 'false'),
+       ('user2', '{noop}12365', '2020-06-11', 'true', 'false'),
+       ('user3', '{noop}12745', '2020-07-12', 'true', 'false'),
+       ('admin1', '{noop}52345', '2020-08-13', 'true', 'true'),
+       ('admin2', '{noop}17345', '2020-09-14', 'true', 'true');
 
 INSERT INTO RESTAURANT (NAME)
 VALUES ('rest1'),

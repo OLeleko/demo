@@ -17,7 +17,7 @@ import java.util.List;
 import static com.example.demo.util.ValidationUtil.assureIdConsistent;
 
 @RestController
-@RequestMapping(value = "/menus", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/admin/menus", produces = MediaType.APPLICATION_JSON_VALUE)
 public class MenuController {
 
     @Autowired

@@ -13,7 +13,7 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/restaurants", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/admin/restaurants", produces = MediaType.APPLICATION_JSON_VALUE)
 public class RestaurantController {
 
     @Autowired
