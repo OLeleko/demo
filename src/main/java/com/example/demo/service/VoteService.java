@@ -86,6 +86,7 @@ public class VoteService {
         return voteRepository.getAll(user_id);
     }
 
+
     public List<Vote> findBetween(LocalDate start_date, LocalDate end_date, int user_id){
        return voteRepository.getBetween(start_date, end_date, user_id);
     }

@@ -19,7 +19,10 @@ public class Menu extends AbstractBaseEntity{
     @NotNull
     private LocalDate regist_date;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @Column(name="restaurant_name")
+    private String restaurant_name;
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "restaurant_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonBackReference
@@ -61,7 +64,19 @@ public class Menu extends AbstractBaseEntity{
         return meals;
     }
 
-   /* public void setDate_registration(LocalDate date_registration) {
+    public String getRestaurant_name() {
+        return restaurant_name;
+    }
+
+    public void setRestaurant_name(String restaurant_name) {
+        this.restaurant_name = restaurant_name;
+    }
+
+    public void setMeals(List<Meal> meals) {
+        this.meals = meals;
+    }
+
+    /* public void setDate_registration(LocalDate date_registration) {
         this.date_registration = regist_date.toLocalDate();
     }
 
@@ -78,7 +93,7 @@ public class Menu extends AbstractBaseEntity{
     public String toString() {
         return "Menu{" +
                 "regist_date=" + regist_date +
-                ", restaurant=" + restaurant +
+                ", restaurant_name=" + restaurant_name +
                 ", id=" + id +
                 '}';
     }

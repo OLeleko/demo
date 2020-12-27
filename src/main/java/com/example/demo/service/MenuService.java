@@ -4,6 +4,7 @@ import com.example.demo.model.Menu;
 import com.example.demo.model.Restaurant;
 import com.example.demo.repository.MenuRepository;
 import com.example.demo.repository.RestaurantRepository;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,6 +33,7 @@ public class MenuService {
         }
         Restaurant rest = restaurantRepository.getOne(restaurant_id);
         menu.setRestaurant(rest);
+        menu.setRestaurant_name(rest.getName());
         return menuRepository.save(menu);
 
     }
@@ -43,8 +45,11 @@ public class MenuService {
     public Menu findById(int id){
         return menuRepository.getById(id);
     }
-    
+
+
+    @Cacheable("findByDate")
     public List<Menu> findByDate(LocalDate date){
+
         return menuRepository.getByDate(date);
     }
 
