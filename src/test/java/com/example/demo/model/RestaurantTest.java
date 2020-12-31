@@ -7,10 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-/*import static com.example.demo.RestaurantTestData.restaurant1;*/
+/*import static com.example.demo.TestData.RestaurantTestData.restaurant1;*/
 import static org.assertj.core.api.Assertions.assertThat;
-/*import static com.example.demo.RestaurantTestData.RESTAURANT_ID;*/
-import static com.example.demo.RestaurantTestData.*;
+/*import static com.example.demo.TestData.RestaurantTestData.RESTAURANT_ID;*/
+import static com.example.demo.TestData.RestaurantTestData.*;
 /*import static org.junit.Assert.*;*/
 @RunWith(SpringRunner.class)
 @DataJpaTest

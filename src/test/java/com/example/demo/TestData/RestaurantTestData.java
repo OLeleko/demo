@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.demo.TestData;
 
 import com.example.demo.model.Restaurant;
 

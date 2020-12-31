@@ -1,15 +1,14 @@
 package com.example.demo.service;
 
 import com.example.demo.model.Meal;
-import com.example.demo.repository.MealRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import static com.example.demo.MealTestData.*;
-import static com.example.demo.MenuTestData.MENU_ID;
+import static com.example.demo.TestData.MealTestData.*;
+import static com.example.demo.TestData.MenuTestData.MENU_ID;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)

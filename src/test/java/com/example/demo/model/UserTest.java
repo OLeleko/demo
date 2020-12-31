@@ -1,6 +1,6 @@
 package com.example.demo.model;
 
-import com.example.demo.UserTestData;
+import com.example.demo.TestData.UserTestData;
 import com.example.demo.repository.UserRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -8,8 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import static com.example.demo.UserTestData.*;
-import static org.junit.Assert.*;
+import static com.example.demo.TestData.UserTestData.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)

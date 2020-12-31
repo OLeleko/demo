@@ -68,7 +68,7 @@ public class VoteService {
 
    @Transactional
     public Vote update(int id, int menu_id, int user_id){
-        LocalTime time = LocalTime.of(23,50,00);
+        LocalTime time = LocalTime.of(11,00,00);
         if(LocalTime.now().isAfter(time)){
             throw new NotFoundException("It's too late to update vote for today.");
         }

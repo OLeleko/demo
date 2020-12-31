@@ -7,10 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.util.List;
-
-import static com.example.demo.UserTestData.USER_ID;
-import static com.example.demo.VoteTestData.*;
+import static com.example.demo.TestData.UserTestData.USER_ID;
+import static com.example.demo.TestData.VoteTestData.*;
 import static com.example.demo.model.AbstractBaseEntity.START_SEQ;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -21,14 +19,14 @@ public class VoteServiceTest {
     @Autowired
     private VoteService service;
 
-   /* @Test
+   @Test
     public void create() {
-        Vote created = service.create(getNew(), START_SEQ + 4, 100008);
+        Vote created = service.create(getNew(),100008, START_SEQ + 4);
         int newId = created.getId();
         Vote newVote = getNew();
         newVote.setId(newId);
         assertThat(created).isEqualTo(newVote);
-    }*/
+    }
 
     @Test
     public void findById(){

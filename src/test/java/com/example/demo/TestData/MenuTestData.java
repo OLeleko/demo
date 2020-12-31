@@ -1,5 +1,6 @@
-package com.example.demo;
+package com.example.demo.TestData;
 
+import com.example.demo.TestMatcher;
 import com.example.demo.model.Menu;
 
 import java.text.ParseException;
@@ -11,7 +12,7 @@ import static com.example.demo.model.AbstractBaseEntity.START_SEQ;
 
 public class MenuTestData {
 
-    public static final TestMatcher<Menu> MENU_MATCHER = TestMatcher.usingIgnoringFieldsComparator(Menu.class, "restaurant","meals");
+    public static final TestMatcher<Menu> MENU_MATCHER = TestMatcher.usingIgnoringFieldsComparator(Menu.class, "restaurant","meals", "restaurant_name");
     public static final int MENU_ID = START_SEQ + 8;
     public static LocalDate date = LocalDate.parse("2020-11-13");
     public static LocalDate date2 = LocalDate.parse("2020-11-16");
