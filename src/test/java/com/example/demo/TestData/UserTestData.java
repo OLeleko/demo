@@ -31,6 +31,4 @@ public class UserTestData {
         return new User(null, "New1", "12345", new Date(), true, false);
     }
     public static final User admin1 = new User(ADMIN_ID, "admin1", "52345", date2, true, true);
-
-
 }

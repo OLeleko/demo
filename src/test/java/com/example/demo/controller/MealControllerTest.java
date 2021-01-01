@@ -13,11 +13,10 @@ import static com.example.demo.TestData.MealTestData.MEAL_ID;
 import static com.example.demo.TestData.MealTestData.MEAL_MATCHER;
 import static com.example.demo.TestData.UserTestData.admin1;
 import static com.example.demo.TestUtil.userHttpBasic;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.junit.Assert.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-public class MealControllerTest extends AbstractControllerTest{
+public class MealControllerTest extends AbstractControllerTest {
 
     private static final String REST_MEAL_URL = "/admin/meals" + '/';
 
@@ -25,7 +24,7 @@ public class MealControllerTest extends AbstractControllerTest{
     private MealService service;
 
     @Test
-    public void findById() throws Exception{
+    public void findById() throws Exception {
         perform(MockMvcRequestBuilders.get(REST_MEAL_URL + MEAL_ID)
                 .with(userHttpBasic(admin1)))
                 .andExpect(status().isOk())
@@ -35,7 +34,7 @@ public class MealControllerTest extends AbstractControllerTest{
     }
 
     @Test
-    public void create() throws Exception{
+    public void create() throws Exception {
         Meal newMeal = MealTestData.getNew();
         ResultActions action = perform(MockMvcRequestBuilders.post(REST_MEAL_URL + MEAL_ID)
                 .contentType(MediaType.APPLICATION_JSON)
@@ -49,5 +48,4 @@ public class MealControllerTest extends AbstractControllerTest{
         newMeal.setId(newId);
         MEAL_MATCHER.assertMatch(created, newMeal);
     }
-
 }

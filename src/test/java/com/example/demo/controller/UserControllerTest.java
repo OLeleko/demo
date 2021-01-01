@@ -13,7 +13,7 @@ import static com.example.demo.TestUtil.userHttpBasic;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-public class UserControllerTest extends AbstractControllerTest{
+public class UserControllerTest extends AbstractControllerTest {
 
     private static final String REST_USER_URL = "/admin/users" + '/';
 
@@ -22,7 +22,7 @@ public class UserControllerTest extends AbstractControllerTest{
 
     @Test
     public void findById() throws Exception {
-        perform(MockMvcRequestBuilders.get(REST_USER_URL +  ADMIN_ID)
+        perform(MockMvcRequestBuilders.get(REST_USER_URL + ADMIN_ID)
                 .with(userHttpBasic(admin1)))
                 .andExpect(status().isOk())
                 .andDo(print())
@@ -31,7 +31,7 @@ public class UserControllerTest extends AbstractControllerTest{
     }
 
     @Test
-    public void create() throws Exception{
+    public void create() throws Exception {
         User newUser = getNew();
         ResultActions action = perform(MockMvcRequestBuilders.post(REST_USER_URL)
                 .contentType(MediaType.APPLICATION_JSON)
@@ -43,7 +43,5 @@ public class UserControllerTest extends AbstractControllerTest{
         int newId = created.id();
         newUser.setId(newId);
         USER_MATCHER.assertMatch(created, newUser);
-
-
     }
 }

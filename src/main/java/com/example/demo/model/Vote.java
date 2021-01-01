@@ -1,21 +1,17 @@
 package com.example.demo.model;
 
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "vote", uniqueConstraints = {@UniqueConstraint(columnNames = {"menu_id", "user_id"}, name = "vote_idx")})
-public class Vote extends AbstractBaseEntity{
+public class Vote extends AbstractBaseEntity {
 
     @Column(name = "vote_date", nullable = false)
     @NotNull
@@ -66,10 +62,6 @@ public class Vote extends AbstractBaseEntity{
     public void setMenu(Menu menu) {
         this.menu = menu;
     }
-
-    /*public LocalDate getDate(){
-        return vote_date.toLocalDate();
-    }*/
 
     @Override
     public String toString() {

@@ -32,13 +32,6 @@ public class RestaurantService {
     }
 
     public void delete(int id){
-
         checkNotFoundWithId(repository.delete(id), id);
     }
-/*
-    public Restaurant getById(int id){
-        return repository.getById(id);
-
-
-    }*/
 }

@@ -1,4 +1,3 @@
-DROP TABLE mytry IF EXISTS ;
 DROP TABLE vote IF EXISTS;
 DROP TABLE meal IF EXISTS;
 DROP TABLE menu IF EXISTS;
@@ -56,13 +55,5 @@ CREATE TABLE VOTE
     FOREIGN KEY (menu_id) REFERENCES MENU (id) ON DELETE CASCADE
 );
 
-
-CREATE TABLE mytry
-(
-    id         INTEGER,
-    name       VARCHAR(255)       NOT NULL,
-    registered DATE               NOT NULL,
-    today      DATE DEFAULT TODAY NOT NULL
-);
 
 

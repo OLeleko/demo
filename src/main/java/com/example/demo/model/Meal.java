@@ -12,7 +12,7 @@ import java.math.BigDecimal;
 
 @Entity
 @Table(name = "meal")
-public class Meal extends AbstractNamedEntity{
+public class Meal extends AbstractNamedEntity {
 
     @Column(name = "price", nullable = false)
     @NotNull

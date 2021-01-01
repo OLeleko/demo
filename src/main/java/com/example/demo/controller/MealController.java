@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+
 import static com.example.demo.util.ValidationUtil.assureIdConsistent;
 
 @RestController
@@ -20,22 +21,12 @@ public class MealController {
     private MealService service;
 
     @GetMapping("/{id}")
-    public Meal findById(@PathVariable int id){
+    public Meal findById(@PathVariable int id) {
         return service.findById(id);
     }
 
-    /*@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Meal> create(@RequestBody Meal meal, @RequestParam int menu_id){
-        Meal created = service.create(meal, menu_id);
-        URI uriOfNewResorce = ServletUriComponentsBuilder.fromCurrentContextPath()
-                .path("/meals/{id}")
-                .buildAndExpand(created.getId()).toUri();
-        return ResponseEntity.created(uriOfNewResorce).body(created);
-    }*/
-
-
     @PostMapping(value = "/{menu_id}", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Meal> create(@RequestBody Meal meal, @PathVariable int menu_id){
+    public ResponseEntity<Meal> create(@RequestBody Meal meal, @PathVariable int menu_id) {
         Meal created = service.create(meal, menu_id);
         URI uriOfNewResorce = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path("/meals/{id}")
@@ -44,19 +35,14 @@ public class MealController {
     }
 
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void update(@RequestBody Meal meal, @PathVariable int id){
+    public void update(@RequestBody Meal meal, @PathVariable int id) {
         assureIdConsistent(meal, id);
         service.update(meal);
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete(@PathVariable int id){
+    public void delete(@PathVariable int id) {
         service.delete(id);
     }
-
-
-
-
-
 }

@@ -3,11 +3,11 @@ package com.example.demo.model;
 import com.example.demo.HasId;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import org.hibernate.Hibernate;
-import org.springframework.data.domain.Persistable;
 
 import javax.persistence.*;
 
-import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.*;
+import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.ANY;
+import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.NONE;
 
 
 @MappedSuperclass
@@ -35,10 +35,10 @@ public abstract class AbstractBaseEntity implements HasId {
 
     @Override
     public boolean equals(Object o) {
-        if(this == o){
+        if (this == o) {
             return true;
         }
-        if(o == null || !getClass().equals(Hibernate.getClass(o))){
+        if (o == null || !getClass().equals(Hibernate.getClass(o))) {
             return false;
         }
         AbstractBaseEntity that = (AbstractBaseEntity) o;

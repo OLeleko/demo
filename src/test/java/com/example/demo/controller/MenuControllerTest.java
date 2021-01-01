@@ -18,7 +18,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-public class MenuControllerTest extends AbstractControllerTest{
+public class MenuControllerTest extends AbstractControllerTest {
 
     private static final String REST_MENU_URL = "/admin/menus" + '/';
 
@@ -27,7 +27,7 @@ public class MenuControllerTest extends AbstractControllerTest{
 
 
     @Test
-    public void findByDate() throws Exception{
+    public void findByDate() throws Exception {
         perform(MockMvcRequestBuilders.get(REST_MENU_URL + "filter")
                 .param("date", String.valueOf(MenuTestData.date2))
                 .with(userHttpBasic(admin1)))
@@ -37,8 +37,8 @@ public class MenuControllerTest extends AbstractControllerTest{
     }
 
     @Test
-    public void create() throws Exception{
-        Menu newMenu =  MenuTestData.getNew();
+    public void create() throws Exception {
+        Menu newMenu = MenuTestData.getNew();
         ResultActions action = perform(MockMvcRequestBuilders.post(REST_MENU_URL + RESTAURANT_ID)
                 .contentType(MediaType.APPLICATION_JSON)
                 .with(userHttpBasic(admin1))
@@ -50,9 +50,4 @@ public class MenuControllerTest extends AbstractControllerTest{
         newMenu.setId(newId);
         MENU_MATCHER.assertMatch(created, newMenu);
     }
-
-
-
-
-
 }

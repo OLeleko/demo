@@ -18,5 +18,4 @@ public class MealTest {
     public void findById(){
         Meal meal = mealRepository.getOne(100019);
     }
-
 }

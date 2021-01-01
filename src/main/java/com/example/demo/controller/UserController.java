@@ -1,13 +1,11 @@
 package com.example.demo.controller;
 
 import com.example.demo.model.User;
-import com.example.demo.repository.UserRepository;
 import com.example.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -24,23 +22,19 @@ public class UserController {
     @Autowired
     private UserService service;
 
-    /*@Autowired
-    private BCryptPasswordEncoder passwordEncoder;*/
-
     @GetMapping
-    public List<User> findAll(){
+    public List<User> findAll() {
         return service.findAll();
     }
 
     @GetMapping("/{id}")
-    public User findById(@PathVariable int id){
+    public User findById(@PathVariable int id) {
 
         return service.findById(id);
-
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<User> create(@Valid @RequestBody User user){
+    public ResponseEntity<User> create(@Valid @RequestBody User user) {
         User created = service.create(user);
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path("/users/{id}")
@@ -49,17 +43,14 @@ public class UserController {
     }
 
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void update(@Valid @RequestBody User user, @PathVariable int id){
+    public void update(@Valid @RequestBody User user, @PathVariable int id) {
         assureIdConsistent(user, id);
         service.update(user);
-
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete(@PathVariable int id){
+    public void delete(@PathVariable int id) {
         service.delete(id);
     }
-
-
 }

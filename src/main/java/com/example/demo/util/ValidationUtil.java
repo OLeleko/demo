@@ -1,10 +1,8 @@
 package com.example.demo.util;
 
 import com.example.demo.HasId;
-import org.springframework.data.crossstore.ChangeSetPersister;
 
 import javax.validation.*;
-import java.util.Optional;
 import java.util.Set;
 
 public class ValidationUtil {

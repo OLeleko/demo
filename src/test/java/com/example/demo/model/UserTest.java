@@ -19,13 +19,13 @@ public class UserTest {
     private UserRepository repository;
 
     @Test
-    public void findById(){
+    public void findById() {
         User user = repository.getOne(USER_ID);
         assertThat(user).isEqualTo(user1);
     }
 
     @Test
-    public void create(){
+    public void create() {
         User created = repository.save(UserTestData.getNew());
         int newId = created.getId();
         User newUser = getNew();

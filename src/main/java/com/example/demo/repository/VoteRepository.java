@@ -17,7 +17,7 @@ public interface VoteRepository extends JpaRepository<Vote, Integer> {
     Vote getById(@Param("id") Integer id, @Param("userId") int userId);
 
     @Query("SELECT v FROM Vote v JOIN FETCH v.user u JOIN FETCH v.menu m JOIN FETCH m.restaurant WHERE v.vote_date=:vote_date AND v.user.id=:userId")
-    Vote getByDate(@Param("vote_date")LocalDate vote_date, @Param("userId") int userId);
+    Vote getByDate(@Param("vote_date") LocalDate vote_date, @Param("userId") int userId);
 
     @Query("SELECT v FROM Vote v JOIN FETCH v.user u JOIN FETCH v.menu m JOIN FETCH m.restaurant WHERE v.user.id=:userId AND v.vote_date >=:start_date AND v.vote_date <=:end_date ORDER BY v.vote_date DESC")
     List<Vote> getBetween(@Param("start_date") LocalDate start_date, @Param("end_date") LocalDate end_date, @Param("userId") int userId);

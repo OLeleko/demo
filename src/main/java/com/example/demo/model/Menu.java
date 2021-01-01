@@ -8,18 +8,17 @@ import org.hibernate.annotations.OnDeleteAction;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
 @Table(name = "menu", uniqueConstraints = {@UniqueConstraint(columnNames = {"regist_date", "restaurant_id"}, name = "menu_idx")})
-public class Menu extends AbstractBaseEntity{
+public class Menu extends AbstractBaseEntity {
 
     @Column(name = "regist_date", nullable = false)
     @NotNull
     private LocalDate regist_date;
 
-    @Column(name="restaurant_name")
+    @Column(name = "restaurant_name")
     private String restaurant_name;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -33,8 +32,6 @@ public class Menu extends AbstractBaseEntity{
     @OrderBy("price DESC")
     @JsonManagedReference
     private List<Meal> meals;
-
-    /*private LocalDate date_registration;*/
 
     public Menu() {
     }
@@ -75,19 +72,6 @@ public class Menu extends AbstractBaseEntity{
     public void setMeals(List<Meal> meals) {
         this.meals = meals;
     }
-
-    /* public void setDate_registration(LocalDate date_registration) {
-        this.date_registration = regist_date.toLocalDate();
-    }
-
-    public LocalDate getDate_registration() {
-        return date_registration;
-    }*/
-
-    /* public LocalDate getDate(){
-        return regist_date.toLocalDate();
-    }*/
-
 
     @Override
     public String toString() {

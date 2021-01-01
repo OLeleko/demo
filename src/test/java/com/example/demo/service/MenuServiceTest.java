@@ -30,13 +30,13 @@ public class MenuServiceTest {
     }
 
     @Test
-    public void findById(){
+    public void findById() {
         Menu menu = menuService.findById(MENU_ID);
         MENU_MATCHER.assertMatch(menu, menu1);
     }
 
     @Test
-    public void findByDate(){
+    public void findByDate() {
         List<Menu> menuList = menuService.findByDate(date2);
         assertThat(menuList).hasSize(3);
     }

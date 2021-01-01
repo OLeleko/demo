@@ -1,7 +1,10 @@
 package com.example.demo.controller;
 
 import com.example.demo.TestUtil;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -12,15 +15,8 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ObjectReader;
-import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import java.io.UnsupportedEncodingException;
-
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -32,7 +28,6 @@ public abstract class AbstractControllerTest {
     private MockMvc mockMvc;
 
     ObjectMapper mapper = new ObjectMapper();
-
 
 
     protected ResultActions perform(MockHttpServletRequestBuilder builder) throws Exception {
@@ -49,7 +44,7 @@ public abstract class AbstractControllerTest {
         }
     }
 
-    public  <T> T readValue(String json, Class<T> clazz) {
+    public <T> T readValue(String json, Class<T> clazz) {
         try {
             return mapper.readValue(json, clazz);
         } catch (IOException e) {
@@ -57,8 +52,7 @@ public abstract class AbstractControllerTest {
         }
     }
 
-    public  <T> T readFromJson(ResultActions action, Class<T> clazz) throws UnsupportedEncodingException {
+    public <T> T readFromJson(ResultActions action, Class<T> clazz) throws UnsupportedEncodingException {
         return readValue(TestUtil.getContent(action.andReturn()), clazz);
     }
-
 }

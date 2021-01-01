@@ -11,17 +11,16 @@ import java.util.Set;
 
 public class CustomUserDetails implements UserDetails {
 
-
     private User user;
     private final Set<GrantedAuthority> authorities = new HashSet<>();
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
 
-        if(user.isAdmin() == true){
+        if (user.isAdmin()) {
             authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
             return authorities;
-        }else{
+        } else {
             authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
             return authorities;
         }

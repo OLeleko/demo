@@ -24,7 +24,6 @@ public class UserService {
         return checkNotFoundWithId(repository.findById(id).orElse(null), id);
     }
 
-
     public User create(User user){
         Assert.notNull(user, "user must not be null");
         return repository.save(user);
@@ -37,7 +36,6 @@ public class UserService {
 
     public void delete(int id){
         checkNotFoundWithId(repository.delete(id), id);
-        /*repository.deleteById(id);*/
     }
 
     public void enable(int id, boolean enabled){
@@ -49,11 +47,4 @@ public class UserService {
     public List<User> findAll(){
         return repository.findAll();
     }
-/*
-
-    public User getById(int id){
-        return checkNotFoundWithId(repository.findById(id).orElse(null), id);
-    }
-*/
-
 }

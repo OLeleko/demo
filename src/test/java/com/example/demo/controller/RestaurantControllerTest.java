@@ -10,15 +10,13 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import static com.example.demo.TestData.RestaurantTestData.RESTAURANT_ID;
-import static com.example.demo.TestData.UserTestData.ADMIN_ID;
 import static com.example.demo.TestData.UserTestData.admin1;
 import static com.example.demo.TestUtil.userHttpBasic;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-public class RestaurantControllerTest extends AbstractControllerTest{
+public class RestaurantControllerTest extends AbstractControllerTest {
 
     private static final String REST_Restaurant_URL = "/admin/restaurants" + '/';
 
@@ -27,7 +25,7 @@ public class RestaurantControllerTest extends AbstractControllerTest{
 
     @Test
     public void findById() throws Exception {
-        perform(MockMvcRequestBuilders.get(REST_Restaurant_URL +  RESTAURANT_ID )
+        perform(MockMvcRequestBuilders.get(REST_Restaurant_URL + RESTAURANT_ID)
                 .with(userHttpBasic(admin1)))
                 .andExpect(status().isOk())
                 .andDo(print())
@@ -36,7 +34,7 @@ public class RestaurantControllerTest extends AbstractControllerTest{
     }
 
     @Test
-    public void create() throws Exception{
+    public void create() throws Exception {
         Restaurant newRestaurant = RestaurantTestData.getNew();
         ResultActions action = perform(MockMvcRequestBuilders.post(REST_Restaurant_URL)
                 .contentType(MediaType.APPLICATION_JSON)
@@ -50,7 +48,4 @@ public class RestaurantControllerTest extends AbstractControllerTest{
         newRestaurant.setId(newId);
         assertThat(created).isEqualTo(newRestaurant);
     }
-
-
-
 }

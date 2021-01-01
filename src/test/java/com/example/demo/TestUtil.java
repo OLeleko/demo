@@ -16,10 +16,4 @@ public class TestUtil {
     public static RequestPostProcessor userHttpBasic(User user) {
         return SecurityMockMvcRequestPostProcessors.httpBasic(user.getName(), user.getPassword());
     }
-
-
-
-
-
-
 }

@@ -19,9 +19,9 @@ public class VoteServiceTest {
     @Autowired
     private VoteService service;
 
-   @Test
+    @Test
     public void create() {
-        Vote created = service.create(getNew(),100008, START_SEQ + 4);
+        Vote created = service.create(getNew(), 100008, START_SEQ + 4);
         int newId = created.getId();
         Vote newVote = getNew();
         newVote.setId(newId);
@@ -29,25 +29,14 @@ public class VoteServiceTest {
     }
 
     @Test
-    public void findById(){
+    public void findById() {
         Vote vote = service.findById(100044, USER_ID);
         VOTE_MATCHER.assertMatch(vote, getWithId());
     }
 
     @Test
-    public void findByDate(){
+    public void findByDate() {
         Vote vote = service.findByDate(dateVote, USER_ID);
         assertThat(vote.getId()).isEqualTo(100042);
     }
-/*
-
-    @Test
-    public void update(){
-        Vote vote = service.findById(100044);
-        service.update(vote, 100000, 100013);
-        assertThat(vote.getMenu().getId()).isEqualTo(100013);
-    }
-*/
-
-
 }

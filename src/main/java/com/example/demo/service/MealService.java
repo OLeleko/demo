@@ -15,15 +15,14 @@ public class MealService {
     private final MealRepository mealRepository;
     private final MenuRepository menuRepository;
 
-
     public MealService(MealRepository mealRepository, MenuRepository menuRepository) {
         this.mealRepository = mealRepository;
         this.menuRepository = menuRepository;
     }
 
     @Transactional
-    public Meal create(Meal meal, int menu_id){
-        if(!meal.isNew()){
+    public Meal create(Meal meal, int menu_id) {
+        if (!meal.isNew()) {
             return null;
         }
         Menu menu = menuRepository.getById(menu_id);
@@ -32,26 +31,18 @@ public class MealService {
     }
 
     @Transactional
-    public Meal findById(int id){
-
-        /*return mealRepository.getById(id);*/
+    public Meal findById(int id) {
         return mealRepository.findById(id)
                 .orElse(null);
     }
 
-    public void delete(int id){
+    public void delete(int id) {
         checkNotFoundWithId(mealRepository.delete(id), id);
     }
 
-    public void update(Meal meal){
+    @Transactional
+    public void update(Meal meal) {
         Assert.notNull(meal, "meal must not be null");
         mealRepository.save(meal);
     }
-
-
-
-
-
-
-
 }

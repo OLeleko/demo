@@ -1,13 +1,10 @@
 package com.example.demo;
 
-import org.springframework.test.web.servlet.ResultMatcher;
-
-import java.util.List;
 import java.util.function.BiConsumer;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class TestMatcher <T>{
+public class TestMatcher<T> {
     private final Class<T> clazz;
     private final BiConsumer<T, T> assertion;
     private final BiConsumer<Iterable<T>, Iterable<T>> iterableAssertion;
@@ -33,27 +30,4 @@ public class TestMatcher <T>{
     public void assertMatch(T actual, T expected) {
         assertion.accept(actual, expected);
     }
-
-
-  /*  @SafeVarargs
-    public final void assertMatch(Iterable<T> actual, T... expected) {
-        assertMatch(actual, List.of(expected));
-    }
-
-    public void assertMatch(Iterable<T> actual, Iterable<T> expected) {
-        iterableAssertion.accept(actual, expected);
-    }
-
-    public ResultMatcher contentJson(T expected) {
-        return result -> assertMatch(TestUtil.readFromJsonMvcResult(result, clazz), expected);
-    }
-
-    @SafeVarargs
-    public final ResultMatcher contentJson(T... expected) {
-        return contentJson(List.of(expected));
-    }
-
-    public ResultMatcher contentJson(Iterable<T> expected) {
-        return result -> assertMatch(readListFromJsonMvcResult(result, clazz), expected);
-    }*/
 }
