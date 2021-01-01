@@ -11,6 +11,7 @@ import java.util.List;
 @Table(name ="restaurant", uniqueConstraints = {@UniqueConstraint(columnNames = "name", name = "restaurant_name")})
 public class Restaurant extends AbstractNamedEntity{
 
+
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurant")
     @OrderBy("regist_date DESC")
     @JsonManagedReference
@@ -22,6 +23,11 @@ public class Restaurant extends AbstractNamedEntity{
 
     public Restaurant(Integer id, @NotBlank @Size(min = 2) String name) {
         super(id, name);
+    }
+
+
+    public void setMenus(List<Menu> menus) {
+        this.menus = menus;
     }
 
     public List<Menu> getMenus() {

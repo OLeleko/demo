@@ -11,6 +11,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 
@@ -39,10 +40,7 @@ public class UserController {
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<User> create(@RequestBody User user){
-        /*String pwd = user.getPassword();
-        String encryptPwd = passwordEncoder.encode(pwd);
-        user.setPassword(encryptPwd);*/
+    public ResponseEntity<User> create(@Valid @RequestBody User user){
         User created = service.create(user);
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path("/users/{id}")
@@ -51,7 +49,7 @@ public class UserController {
     }
 
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void update(@RequestBody User user, @PathVariable int id){
+    public void update(@Valid @RequestBody User user, @PathVariable int id){
         assureIdConsistent(user, id);
         service.update(user);
 
