@@ -23,8 +23,12 @@ public class RestaurantService {
         return repository.save(restaurant);
     }
 
-    public Restaurant findById(int id){
+    /*public Restaurant findById(int id){
         return checkNotFoundWithId(repository.findById(id).orElse(null), id);
+    }*/
+
+    public Restaurant findById(int id){
+        return repository.findById(id).orElse(null);
     }
 
     public List<Restaurant> findAll(){

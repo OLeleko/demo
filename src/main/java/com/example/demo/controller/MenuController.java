@@ -31,13 +31,25 @@ public class MenuController {
         return service.findByDate(date);
     }
 
-    @GetMapping("/{id}")
+    /*@GetMapping("/{id}")
     public Menu findById(@PathVariable int id) {
-        return service.findById(id);
+        Menu result = service.findById(id);
+        return result;
+    }*/
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Menu> findById(@PathVariable int id) {
+        Menu result = service.findById(id);
+        if(result == null){
+            return ResponseEntity
+                    .status(HttpStatus.NOT_FOUND)
+                    .body(result);
+        }
+        return ResponseEntity.ok(result);
     }
 
-    @PostMapping(value = "/{restaurant_id}", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Menu> create(@RequestBody Menu menu, @PathVariable int restaurant_id) {
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Menu> create(@RequestBody Menu menu, @RequestParam int restaurant_id) {
         Menu created = service.create(menu, restaurant_id);
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path("/menus/{id}")

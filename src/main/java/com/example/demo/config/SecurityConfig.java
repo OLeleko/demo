@@ -34,30 +34,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
     protected void configure(HttpSecurity http) throws Exception{
         http.authorizeRequests()
                 .antMatchers("/admin/**").hasRole("ADMIN")
-                .antMatchers("/votes").authenticated()
+                .antMatchers("/votes/**").authenticated()
                 .and().httpBasic()
                 .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and().csrf().disable();
 
 
     }
-
-    /*@Bean
-    public BCryptPasswordEncoder encodePWD(){
-        return new BCryptPasswordEncoder();
-    }*/
-/*
-    private PasswordEncoder getPasswordEncoder() {
-        return new PasswordEncoder() {
-            @Override
-            public String encode(CharSequence charSequence) {
-                return charSequence.toString();
-            }
-
-            @Override
-            public boolean matches(CharSequence charSequence, String s) {
-                return true;
-            }
-        };
-    }*/
 }

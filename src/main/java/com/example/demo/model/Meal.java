@@ -21,7 +21,6 @@ public class Meal extends AbstractNamedEntity {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "menu_id", nullable = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonBackReference
     @NotNull
     private Menu menu;

@@ -1,6 +1,8 @@
 package com.example.demo.model;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -14,6 +16,7 @@ public class Restaurant extends AbstractNamedEntity{
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurant")
     @OrderBy("regist_date DESC")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonManagedReference
     private List<Menu> menus;
 

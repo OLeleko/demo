@@ -21,8 +21,14 @@ public class MealController {
     private MealService service;
 
     @GetMapping("/{id}")
-    public Meal findById(@PathVariable int id) {
-        return service.findById(id);
+    public ResponseEntity<Meal> findById(@PathVariable int id) {
+        Meal result = service.findById(id);
+        if(result == null){
+            return ResponseEntity
+                    .status(HttpStatus.NOT_FOUND)
+                    .body(result);
+        }
+        return ResponseEntity.ok(result);
     }
 
     @PostMapping(value = "/{menu_id}", consumes = MediaType.APPLICATION_JSON_VALUE)

@@ -13,13 +13,22 @@ import java.util.List;
 @Transactional(readOnly = true)
 public interface VoteRepository extends JpaRepository<Vote, Integer> {
 
-    @Query("SELECT v FROM Vote v JOIN FETCH v.user u JOIN FETCH v.menu m JOIN FETCH m.restaurant WHERE v.id=:id AND v.user.id=:userId")
+    /*@Query("SELECT v FROM Vote v JOIN FETCH v.user u JOIN FETCH v.menu m JOIN FETCH m.restaurant WHERE v.id=:id AND v.user.id=:userId")
+    Vote getById(@Param("id") Integer id, @Param("userId") int userId);*/
+
+    @Query("SELECT v FROM Vote v WHERE v.id=:id AND v.user.id=:userId")
     Vote getById(@Param("id") Integer id, @Param("userId") int userId);
 
-    @Query("SELECT v FROM Vote v JOIN FETCH v.user u JOIN FETCH v.menu m JOIN FETCH m.restaurant WHERE v.vote_date=:vote_date AND v.user.id=:userId")
+    /*@Query("SELECT v FROM Vote v JOIN FETCH v.user u JOIN FETCH v.menu m JOIN FETCH m.restaurant WHERE v.vote_date=:vote_date AND v.user.id=:userId")
+    Vote getByDate(@Param("vote_date") LocalDate vote_date, @Param("userId") int userId);*/
+
+    @Query("SELECT v FROM Vote v WHERE v.vote_date=:vote_date AND v.user.id=:userId")
     Vote getByDate(@Param("vote_date") LocalDate vote_date, @Param("userId") int userId);
 
-    @Query("SELECT v FROM Vote v JOIN FETCH v.user u JOIN FETCH v.menu m JOIN FETCH m.restaurant WHERE v.user.id=:userId AND v.vote_date >=:start_date AND v.vote_date <=:end_date ORDER BY v.vote_date DESC")
+    /*@Query("SELECT v FROM Vote v JOIN FETCH v.user u JOIN FETCH v.menu m JOIN FETCH m.restaurant WHERE v.user.id=:userId AND v.vote_date >=:start_date AND v.vote_date <=:end_date ORDER BY v.vote_date DESC")
+    List<Vote> getBetween(@Param("start_date") LocalDate start_date, @Param("end_date") LocalDate end_date, @Param("userId") int userId);*/
+
+    @Query("SELECT v FROM Vote v WHERE v.user.id=:userId AND v.vote_date >=:start_date AND v.vote_date <=:end_date ORDER BY v.vote_date DESC")
     List<Vote> getBetween(@Param("start_date") LocalDate start_date, @Param("end_date") LocalDate end_date, @Param("userId") int userId);
 
     @Query("SELECT v FROM Vote v WHERE v.user.id=:userId ORDER BY v.vote_date DESC")

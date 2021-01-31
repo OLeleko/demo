@@ -7,6 +7,7 @@ import com.example.demo.repository.MenuRepository;
 import com.example.demo.repository.UserRepository;
 import com.example.demo.repository.VoteRepository;
 import com.example.demo.util.NotFoundException;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,6 +23,9 @@ public class VoteService {
     private final VoteRepository voteRepository;
     private final UserRepository userRepository;
     private final MenuRepository menuRepository;
+
+    @Value("${vote_time}")
+    private String time_vote;
 
     public VoteService(VoteRepository voteRepository, UserRepository userRepository, MenuRepository menuRepository) {
         this.voteRepository = voteRepository;
@@ -50,12 +54,14 @@ public class VoteService {
     }
 
     @Transactional
-    public Vote update(int id, int menu_id, int user_id) {
-        LocalTime time = LocalTime.of(11, 00, 00);
+    public Vote update(int menu_id, int user_id) {
+        /*LocalTime time = LocalTime.of(23, 00, 00);*/
+        LocalTime time = LocalTime.parse(time_vote);
         if (LocalTime.now().isAfter(time)) {
             throw new NotFoundException("It's too late to update vote for today.");
         }
-        Vote vote = voteRepository.getById(id, user_id);
+        /*Vote vote = voteRepository.getById(id, user_id);*/
+        Vote vote = findByDate(LocalDate.now(), user_id);
         Menu menu = menuRepository.getById(menu_id);
         if (vote == null || menu == null) {
             return null;

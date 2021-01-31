@@ -28,9 +28,14 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public User findById(@PathVariable int id) {
-
-        return service.findById(id);
+    public ResponseEntity<User> findById(@PathVariable int id) {
+        User result = service.findById(id);
+        if(result == null){
+            return ResponseEntity
+                    .status(HttpStatus.NOT_FOUND)
+                    .body(result);
+        }
+        return ResponseEntity.ok(result);
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)

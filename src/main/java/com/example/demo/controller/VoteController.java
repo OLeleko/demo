@@ -37,10 +37,16 @@ public class VoteController {
     }
 
     @GetMapping("/{id}")
-    public Vote findById(@AuthenticationPrincipal CustomUserDetails customUserDetails, @PathVariable int id) {
+    public ResponseEntity<Vote> findById(@AuthenticationPrincipal CustomUserDetails customUserDetails, @PathVariable int id) {
         User user = customUserDetails.getUser();
         int userId = user.getId();
-        return service.findById(id, userId);
+        Vote result = service.findById(id, userId);
+        if(result == null){
+            return ResponseEntity
+                    .status(HttpStatus.NOT_FOUND)
+                    .body(result);
+        }
+        return ResponseEntity.ok(result);
     }
 
     @GetMapping("/date")
@@ -61,16 +67,15 @@ public class VoteController {
     }
 
     @GetMapping("/menus")
-    public List<Menu> todayMenus(@AuthenticationPrincipal CustomUserDetails customUserDetails,
-                                 @RequestParam("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
+    public List<Menu> todayMenus(@AuthenticationPrincipal CustomUserDetails customUserDetails) {
         User user = customUserDetails.getUser();
         int userId = user.getId();
-        return menuService.findByDate(date);
+        return menuService.findByDate(LocalDate.now());
     }
 
-    @PostMapping(value = "/{menuId}", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Vote> create(@AuthenticationPrincipal CustomUserDetails customUserDetails,
-                                       @RequestBody Vote vote, @PathVariable int menuId) {
+                                        @RequestBody Vote vote, @RequestParam int menuId) {
         User user = customUserDetails.getUser();
         int userId = user.getId();
         Vote created = service.create(vote, menuId, userId);
@@ -80,20 +85,20 @@ public class VoteController {
         return ResponseEntity.created(uriOfNewResource).body(created);
     }
 
-    @DeleteMapping("/{id}")
+    /*@DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@AuthenticationPrincipal CustomUserDetails customUserDetails,
                        @PathVariable int id) {
         User user = customUserDetails.getUser();
         int userId = user.getId();
         service.delete(id, userId);
-    }
+    }*/
 
-    @PutMapping(value = "/{id}/{menu_id}", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public void update(@AuthenticationPrincipal CustomUserDetails customUserDetails,
-                       @PathVariable int id, @PathVariable int menu_id) {
+                       @RequestParam int menu_id) {
         User user = customUserDetails.getUser();
         int userId = user.getId();
-        service.update(id, menu_id, userId);
+        service.update(menu_id, userId);
     }
 }

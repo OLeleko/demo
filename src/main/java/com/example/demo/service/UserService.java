@@ -19,10 +19,17 @@ public class UserService {
         this.repository = repository;
     }
 
-    @Transactional
+   /* @Transactional
     public User findById(int id){
+
         return checkNotFoundWithId(repository.findById(id).orElse(null), id);
+    }*/
+
+    public User findById(int id){
+
+        return repository.findById(id).orElse(null);
     }
+
 
     public User create(User user){
         Assert.notNull(user, "user must not be null");

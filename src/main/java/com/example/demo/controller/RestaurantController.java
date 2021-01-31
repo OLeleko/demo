@@ -26,8 +26,14 @@ public class RestaurantController {
     }
 
     @GetMapping("/{id}")
-    public Restaurant findById(@PathVariable int id) {
-        return service.findById(id);
+    public ResponseEntity<Restaurant> findById(@PathVariable int id) {
+        Restaurant result = service.findById(id);
+        if(result == null){
+            return ResponseEntity
+                    .status(HttpStatus.NOT_FOUND)
+                    .body(result);
+        }
+        return ResponseEntity.ok(result);
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)

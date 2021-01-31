@@ -19,7 +19,6 @@ public class Vote extends AbstractBaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
     @NotNull
     private User user;
@@ -27,7 +26,6 @@ public class Vote extends AbstractBaseEntity {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "menu_id", nullable = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
     @NotNull
     private Menu menu;
 

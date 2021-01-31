@@ -13,10 +13,16 @@ import java.util.List;
 
 @Transactional(readOnly = true)
 public interface MenuRepository extends JpaRepository<Menu, Integer> {
-    @Query("SELECT m FROM Menu m JOIN FETCH m.restaurant WHERE m.id=:id")
+    /*@Query("SELECT m FROM Menu m JOIN FETCH m.restaurant WHERE m.id=:id")
+    Menu getById(@Param("id") Integer id);*/
+
+    @Query("SELECT m FROM Menu m WHERE m.id=:id")
     Menu getById(@Param("id") Integer id);
 
-    @Query("SELECT m FROM Menu m JOIN FETCH m.restaurant WHERE m.regist_date=:regist_date")
+    /*@Query("SELECT m FROM Menu m JOIN FETCH m.restaurant WHERE m.regist_date=:regist_date")
+    List<Menu> getByDate(@Param("regist_date") LocalDate regist_date);*/
+
+    @Query("SELECT m FROM Menu m WHERE m.regist_date=:regist_date")
     List<Menu> getByDate(@Param("regist_date") LocalDate regist_date);
 
     @Transactional
