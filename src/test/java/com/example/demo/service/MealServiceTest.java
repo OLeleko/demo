@@ -9,7 +9,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import static com.example.demo.TestData.MealTestData.*;
 import static com.example.demo.TestData.MenuTestData.MENU_ID;
-import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -24,7 +23,8 @@ public class MealServiceTest {
         int newId = created.getId();
         Meal newMeal = getNew();
         newMeal.setId(newId);
-        assertThat(created).isEqualTo(newMeal);
+        /*assertThat(created).isEqualTo(newMeal);*/
+        MEAL_MATCHER.assertMatch(created, newMeal);
     }
 
     @Test

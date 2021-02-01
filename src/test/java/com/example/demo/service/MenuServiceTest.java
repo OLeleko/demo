@@ -26,7 +26,8 @@ public class MenuServiceTest {
         int newId = created.getId();
         Menu newMenu = getNew();
         newMenu.setId(newId);
-        assertThat(created).isEqualTo(newMenu);
+        /*assertThat(created).isEqualTo(newMenu);*/
+        MENU_MATCHER.assertMatch(created, newMenu);
     }
 
     @Test

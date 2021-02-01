@@ -6,7 +6,7 @@ import com.example.demo.model.Vote;
 import com.example.demo.repository.MenuRepository;
 import com.example.demo.repository.UserRepository;
 import com.example.demo.repository.VoteRepository;
-import com.example.demo.util.NotFoundException;
+import com.example.demo.util.LateUpdateException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -58,12 +58,13 @@ public class VoteService {
         /*LocalTime time = LocalTime.of(23, 00, 00);*/
         LocalTime time = LocalTime.parse(time_vote);
         if (LocalTime.now().isAfter(time)) {
-            throw new NotFoundException("It's too late to update vote for today.");
+            /*throw new NotFoundException("It's too late to update vote for today.");*/
+            throw new LateUpdateException("It's too late to update vote for today.");
         }
         /*Vote vote = voteRepository.getById(id, user_id);*/
         Vote vote = findByDate(LocalDate.now(), user_id);
         Menu menu = menuRepository.getById(menu_id);
-        if (vote == null || menu == null) {
+        if (menu == null) {
             return null;
         }
         vote.setMenu(menu);

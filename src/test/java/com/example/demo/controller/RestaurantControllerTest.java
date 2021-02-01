@@ -10,6 +10,7 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import static com.example.demo.TestData.RestaurantTestData.RESTAURANT_ID;
+import static com.example.demo.TestData.RestaurantTestData.RESTAURANT_MATCHER;
 import static com.example.demo.TestData.UserTestData.admin1;
 import static com.example.demo.TestUtil.userHttpBasic;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -46,6 +47,7 @@ public class RestaurantControllerTest extends AbstractControllerTest {
         Restaurant created = readFromJson(action, Restaurant.class);
         int newId = created.id();
         newRestaurant.setId(newId);
-        assertThat(created).isEqualTo(newRestaurant);
+        /*assertThat(created).isEqualTo(newRestaurant);*/
+        RESTAURANT_MATCHER.assertMatch(created, newRestaurant);
     }
 }

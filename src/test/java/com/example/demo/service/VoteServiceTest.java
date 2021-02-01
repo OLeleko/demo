@@ -25,7 +25,8 @@ public class VoteServiceTest {
         int newId = created.getId();
         Vote newVote = getNew();
         newVote.setId(newId);
-        assertThat(created).isEqualTo(newVote);
+        /*assertThat(created).isEqualTo(newVote);*/
+        VOTE_MATCHER.assertMatch(created, newVote);
     }
 
     @Test
