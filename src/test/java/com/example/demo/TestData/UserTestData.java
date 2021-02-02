@@ -11,7 +11,7 @@ import static com.example.demo.model.AbstractBaseEntity.START_SEQ;
 
 public class UserTestData {
 
-    public static final TestMatcher<User> USER_MATCHER = TestMatcher.usingIgnoringFieldsComparator(User.class, "registered");
+    public static final TestMatcher<User> USER_MATCHER = TestMatcher.usingIgnoringFieldsComparator(User.class, "registered", "password");
     public static final int USER_ID = START_SEQ;
     public static final int ADMIN_ID = START_SEQ + 3;
     public static final String sDate1 = "2020-05-02";

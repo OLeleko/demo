@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.model.Restaurant;
 import com.example.demo.service.RestaurantService;
+import com.example.demo.util.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -25,10 +26,14 @@ public class RestaurantController {
         return service.findAll();
     }
 
-    @GetMapping("/{id}")
-    public Restaurant findById(@PathVariable int id) {
-        return service.findById(id);
-    }
+   @GetMapping("/{id}")
+   public Restaurant findById(@PathVariable int id) {
+       Restaurant result = service.findById(id);
+       if(result == null){
+           throw new NotFoundException("Object not found");
+       }
+       return result;
+   }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Restaurant> create(@Valid @RequestBody Restaurant restaurant) {

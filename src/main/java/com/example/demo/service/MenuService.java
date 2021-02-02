@@ -4,6 +4,7 @@ import com.example.demo.model.Menu;
 import com.example.demo.model.Restaurant;
 import com.example.demo.repository.MenuRepository;
 import com.example.demo.repository.RestaurantRepository;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,6 +25,7 @@ public class MenuService {
     }
 
     @Transactional
+    @CacheEvict(value = "findByDate", allEntries = true)
     public Menu create(Menu menu, int restaurant_id) {
         if (!menu.isNew()) {
             return null;
@@ -48,6 +50,7 @@ public class MenuService {
         return menuRepository.getByDate(date);
     }
 
+    @CacheEvict(value = "findByDate", allEntries = true)
     public void delete(int id) {
         checkNotFoundWithId(menuRepository.delete(id), id);
     }

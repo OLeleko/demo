@@ -6,9 +6,11 @@ import com.example.demo.model.Vote;
 import com.example.demo.service.CustomUserDetails;
 import com.example.demo.service.MenuService;
 import com.example.demo.service.VoteService;
+import com.example.demo.util.NotFoundException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -22,6 +24,8 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "/votes", produces = MediaType.APPLICATION_JSON_VALUE)
 public class VoteController {
+
+    private static  final Logger LOGGER = LoggerFactory.getLogger(VoteController.class);
 
     @Autowired
     private VoteService service;
@@ -40,7 +44,11 @@ public class VoteController {
     public Vote findById(@AuthenticationPrincipal CustomUserDetails customUserDetails, @PathVariable int id) {
         User user = customUserDetails.getUser();
         int userId = user.getId();
-        return service.findById(id, userId);
+        Vote result = service.findById(id, userId);
+        if(result == null){
+            throw new NotFoundException("Object not found");
+        }
+        return result;
     }
 
     @GetMapping("/date")
@@ -61,39 +69,29 @@ public class VoteController {
     }
 
     @GetMapping("/menus")
-    public List<Menu> todayMenus(@AuthenticationPrincipal CustomUserDetails customUserDetails,
-                                 @RequestParam("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
-        User user = customUserDetails.getUser();
-        int userId = user.getId();
-        return menuService.findByDate(date);
+    public List<Menu> todayMenus(@AuthenticationPrincipal CustomUserDetails customUserDetails) {
+        return menuService.findByDate(LocalDate.now());
     }
 
-    @PostMapping(value = "/{menuId}", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Vote> create(@AuthenticationPrincipal CustomUserDetails customUserDetails,
-                                       @RequestBody Vote vote, @PathVariable int menuId) {
+                                       @RequestBody Vote vote, @RequestParam int menuId) {
         User user = customUserDetails.getUser();
         int userId = user.getId();
         Vote created = service.create(vote, menuId, userId);
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path("/votes/{id}")
                 .buildAndExpand(created.getId()).toUri();
+        LOGGER.info("User " + user.getName() + " voted " + menuId);
         return ResponseEntity.created(uriOfNewResource).body(created);
     }
 
-    @DeleteMapping("/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete(@AuthenticationPrincipal CustomUserDetails customUserDetails,
-                       @PathVariable int id) {
-        User user = customUserDetails.getUser();
-        int userId = user.getId();
-        service.delete(id, userId);
-    }
-
-    @PutMapping(value = "/{id}/{menu_id}", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public void update(@AuthenticationPrincipal CustomUserDetails customUserDetails,
-                       @PathVariable int id, @PathVariable int menu_id) {
+                       @RequestParam int menu_id) {
         User user = customUserDetails.getUser();
         int userId = user.getId();
-        service.update(id, menu_id, userId);
+        LOGGER.info("User " + user.getName() + " updated " + menu_id);
+        service.update(menu_id, userId);
     }
 }

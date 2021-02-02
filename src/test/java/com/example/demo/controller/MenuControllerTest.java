@@ -20,7 +20,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 public class MenuControllerTest extends AbstractControllerTest {
 
-    private static final String REST_MENU_URL = "/admin/menus" + '/';
+    private static final String REST_MENU_URL = "/admin/menus";
 
     @Autowired
     private MenuService service;
@@ -28,7 +28,7 @@ public class MenuControllerTest extends AbstractControllerTest {
 
     @Test
     public void findByDate() throws Exception {
-        perform(MockMvcRequestBuilders.get(REST_MENU_URL + "filter")
+        perform(MockMvcRequestBuilders.get(REST_MENU_URL + '/' + "filter")
                 .param("date", String.valueOf(MenuTestData.date2))
                 .with(userHttpBasic(admin1)))
                 .andExpect(status().isOk())
@@ -39,7 +39,7 @@ public class MenuControllerTest extends AbstractControllerTest {
     @Test
     public void create() throws Exception {
         Menu newMenu = MenuTestData.getNew();
-        ResultActions action = perform(MockMvcRequestBuilders.post(REST_MENU_URL + RESTAURANT_ID)
+        ResultActions action = perform(MockMvcRequestBuilders.post(REST_MENU_URL + "?restaurant_id=" + RESTAURANT_ID)
                 .contentType(MediaType.APPLICATION_JSON)
                 .with(userHttpBasic(admin1))
                 .content(writeValue(newMenu)))

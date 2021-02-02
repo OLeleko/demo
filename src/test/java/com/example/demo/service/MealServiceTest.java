@@ -24,7 +24,7 @@ public class MealServiceTest {
         int newId = created.getId();
         Meal newMeal = getNew();
         newMeal.setId(newId);
-        assertThat(created).isEqualTo(newMeal);
+        MEAL_MATCHER.assertMatch(created, newMeal);
     }
 
     @Test

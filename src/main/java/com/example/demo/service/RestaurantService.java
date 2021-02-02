@@ -24,7 +24,7 @@ public class RestaurantService {
     }
 
     public Restaurant findById(int id){
-        return checkNotFoundWithId(repository.findById(id).orElse(null), id);
+        return repository.findById(id).orElse(null);
     }
 
     public List<Restaurant> findAll(){

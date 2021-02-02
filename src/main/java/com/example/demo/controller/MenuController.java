@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.model.Menu;
 import com.example.demo.service.MenuService;
+import com.example.demo.util.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
@@ -33,11 +34,15 @@ public class MenuController {
 
     @GetMapping("/{id}")
     public Menu findById(@PathVariable int id) {
-        return service.findById(id);
+        Menu result = service.findById(id);
+        if(result == null){
+            throw new NotFoundException("Object not found");
+        }
+        return result;
     }
 
-    @PostMapping(value = "/{restaurant_id}", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Menu> create(@RequestBody Menu menu, @PathVariable int restaurant_id) {
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Menu> create(@RequestBody Menu menu, @RequestParam int restaurant_id) {
         Menu created = service.create(menu, restaurant_id);
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path("/menus/{id}")

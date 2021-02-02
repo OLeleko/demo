@@ -15,7 +15,7 @@ public class VoteTestData {
     public static LocalDate dateVote = LocalDate.parse("2020-11-16");
 
     public static Vote getNew() {
-        return new Vote(null, LocalDate.of(2020, 11, 18));
+        return new Vote(null, LocalDate.now());
     }
 
     public static Vote getWithId() {

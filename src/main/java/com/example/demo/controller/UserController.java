@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.model.User;
 import com.example.demo.service.UserService;
+import com.example.demo.util.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -29,8 +30,11 @@ public class UserController {
 
     @GetMapping("/{id}")
     public User findById(@PathVariable int id) {
-
-        return service.findById(id);
+        User result = service.findById(id);
+        if(result == null){
+            throw new NotFoundException("Object not found");
+        }
+        return result;
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)

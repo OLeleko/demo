@@ -3,7 +3,6 @@ package com.example.demo.service;
 import com.example.demo.model.User;
 import com.example.demo.repository.UserRepository;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import java.util.List;
@@ -19,9 +18,8 @@ public class UserService {
         this.repository = repository;
     }
 
-    @Transactional
     public User findById(int id){
-        return checkNotFoundWithId(repository.findById(id).orElse(null), id);
+        return repository.findById(id).orElse(null);
     }
 
     public User create(User user){

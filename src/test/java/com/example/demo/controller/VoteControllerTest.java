@@ -20,7 +20,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 public class VoteControllerTest extends AbstractControllerTest {
 
-    private static final String REST_VOTE_URL = "/votes" + '/';
+    private static final String REST_VOTE_URL = "/votes";
 
     @Autowired
     private VoteService service;
@@ -30,7 +30,7 @@ public class VoteControllerTest extends AbstractControllerTest {
 
     @Test
     public void findById() throws Exception {
-        perform(MockMvcRequestBuilders.get(REST_VOTE_URL + VOTE_ID)
+        perform(MockMvcRequestBuilders.get(REST_VOTE_URL + '/' + VOTE_ID)
                 .with(userHttpBasic(user1)))
                 .andExpect(status().isOk())
                 .andDo(print())
@@ -42,7 +42,7 @@ public class VoteControllerTest extends AbstractControllerTest {
     @Test
     public void create() throws Exception {
         Vote newVote = VoteTestData.getNew();
-        ResultActions action = perform(MockMvcRequestBuilders.post(REST_VOTE_URL + 100010)
+        ResultActions action = perform(MockMvcRequestBuilders.post(REST_VOTE_URL + "?menuId=100010")
                 .contentType(MediaType.APPLICATION_JSON)
                 .with(userHttpBasic(admin1))
                 .content(writeValue(newVote)))
