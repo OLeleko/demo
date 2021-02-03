@@ -16,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import springfox.documentation.annotations.ApiIgnore;
 
 import java.net.URI;
 import java.time.LocalDate;
@@ -34,14 +35,14 @@ public class VoteController {
     private MenuService menuService;
 
     @GetMapping()
-    public List<Vote> findAll(@AuthenticationPrincipal CustomUserDetails customUserDetails) {
+    public List<Vote> findAll(@ApiIgnore @AuthenticationPrincipal CustomUserDetails customUserDetails) {
         User user = customUserDetails.getUser();
         int userId = user.getId();
         return service.findAll(userId);
     }
 
     @GetMapping("/{id}")
-    public Vote findById(@AuthenticationPrincipal CustomUserDetails customUserDetails, @PathVariable int id) {
+    public Vote findById(@ApiIgnore @AuthenticationPrincipal CustomUserDetails customUserDetails, @PathVariable int id) {
         User user = customUserDetails.getUser();
         int userId = user.getId();
         Vote result = service.findById(id, userId);
@@ -52,7 +53,7 @@ public class VoteController {
     }
 
     @GetMapping("/date")
-    public Vote findByDate(@AuthenticationPrincipal CustomUserDetails customUserDetails,
+    public Vote findByDate(@ApiIgnore @AuthenticationPrincipal CustomUserDetails customUserDetails,
                            @RequestParam("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
         User user = customUserDetails.getUser();
         int userId = user.getId();
@@ -60,7 +61,7 @@ public class VoteController {
     }
 
     @GetMapping("/filter")
-    public List<Vote> findBetween(@AuthenticationPrincipal CustomUserDetails customUserDetails,
+    public List<Vote> findBetween(@ApiIgnore @AuthenticationPrincipal CustomUserDetails customUserDetails,
                                   @RequestParam("start") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate start,
                                   @RequestParam("end") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate end) {
         User user = customUserDetails.getUser();
@@ -69,12 +70,12 @@ public class VoteController {
     }
 
     @GetMapping("/menus")
-    public List<Menu> todayMenus(@AuthenticationPrincipal CustomUserDetails customUserDetails) {
+    public List<Menu> todayMenus(@ApiIgnore @AuthenticationPrincipal CustomUserDetails customUserDetails) {
         return menuService.findByDate(LocalDate.now());
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Vote> create(@AuthenticationPrincipal CustomUserDetails customUserDetails,
+    public ResponseEntity<Vote> create(@ApiIgnore @AuthenticationPrincipal CustomUserDetails customUserDetails,
                                        @RequestBody Vote vote, @RequestParam int menuId) {
         User user = customUserDetails.getUser();
         int userId = user.getId();
@@ -87,7 +88,7 @@ public class VoteController {
     }
 
     @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void update(@AuthenticationPrincipal CustomUserDetails customUserDetails,
+    public void update(@ApiIgnore @AuthenticationPrincipal CustomUserDetails customUserDetails,
                        @RequestParam int menu_id) {
         User user = customUserDetails.getUser();
         int userId = user.getId();
