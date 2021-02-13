@@ -32,7 +32,7 @@ public class MenuService {
         }
         Restaurant rest = restaurantRepository.getOne(restaurant_id);
         menu.setRestaurant(rest);
-        menu.setRestaurant_name(rest.getName());
+        /*menu.setRestaurant_name(rest.getName());*/
         return menuRepository.save(menu);
     }
 

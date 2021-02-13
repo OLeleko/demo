@@ -14,11 +14,11 @@ import java.util.List;
 public class Restaurant extends AbstractNamedEntity{
 
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurant")
+   /* @OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurant")
     @OrderBy("regist_date DESC")
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonManagedReference
-    private List<Menu> menus;
+    private List<Menu> menus;*/
 
     public Restaurant() {
 
@@ -29,13 +29,13 @@ public class Restaurant extends AbstractNamedEntity{
     }
 
 
-    public void setMenus(List<Menu> menus) {
+   /* public void setMenus(List<Menu> menus) {
         this.menus = menus;
     }
 
     public List<Menu> getMenus() {
         return menus;
-    }
+    }*/
 
     @Override
     public String toString() {

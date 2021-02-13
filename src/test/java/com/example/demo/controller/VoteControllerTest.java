@@ -36,7 +36,6 @@ public class VoteControllerTest extends AbstractControllerTest {
                 .andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.id").value((VOTE_ID)));
-        ;
     }
 
     @Test
