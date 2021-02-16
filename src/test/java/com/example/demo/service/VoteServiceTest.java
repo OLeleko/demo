@@ -21,7 +21,7 @@ public class VoteServiceTest {
 
     @Test
     public void create() {
-        Vote created = service.create(getNew(), 100008, START_SEQ + 4);
+        Vote created = service.create(100008, START_SEQ + 4);
         int newId = created.getId();
         Vote newVote = getNew();
         newVote.setId(newId);

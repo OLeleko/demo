@@ -76,10 +76,10 @@ public class VoteController {
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Vote> create(@ApiIgnore @AuthenticationPrincipal CustomUserDetails customUserDetails,
-                                       @RequestBody Vote vote, @RequestParam int menuId) {
+                                       @RequestParam int menuId) {
         User user = customUserDetails.getUser();
         int userId = user.getId();
-        Vote created = service.create(vote, menuId, userId);
+        Vote created = service.create(menuId, userId);
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path("/votes/{id}")
                 .buildAndExpand(created.getId()).toUri();

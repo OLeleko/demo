@@ -27,7 +27,13 @@ public abstract class AbstractControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
-    ObjectMapper mapper = new ObjectMapper();
+   /* ObjectMapper mapper = new ObjectMapperConfig().objectMapper();*/
+   /*ObjectMapper mapper = new ObjectMapper();*/
+
+
+    /*https://habr.com/ru/post/452188/*/
+    @Autowired
+    private ObjectMapper mapper;
 
 
     protected ResultActions perform(MockHttpServletRequestBuilder builder) throws Exception {

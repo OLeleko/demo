@@ -30,7 +30,8 @@ public class MenuService {
         if (!menu.isNew()) {
             return null;
         }
-        Restaurant rest = restaurantRepository.getOne(restaurant_id);
+        /*Restaurant rest = restaurantRepository.getOne(restaurant_id);*/
+        Restaurant rest = restaurantRepository.findById(restaurant_id).orElse(null);
         menu.setRestaurant(rest);
         /*menu.setRestaurant_name(rest.getName());*/
         return menuRepository.save(menu);

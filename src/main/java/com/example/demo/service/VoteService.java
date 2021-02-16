@@ -34,10 +34,11 @@ public class VoteService {
     private String time_vote;
 
     @Transactional
-    public Vote create(Vote vote, int menu_id, int user_id) {
-        if (!vote.isNew()) {
+    public Vote create(int menu_id, int user_id) {
+        /*if (!vote.isNew()) {
             return null;
-        }
+        }*/
+        Vote vote = new Vote();
         User user = userRepository.getOne(user_id);
         Menu menu = menuRepository.getById(menu_id);
         vote.setUser(user);

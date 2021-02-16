@@ -19,7 +19,9 @@ public class UserService {
     }
 
     public User findById(int id){
+
         return repository.findById(id).orElse(null);
+
     }
 
     public User create(User user){

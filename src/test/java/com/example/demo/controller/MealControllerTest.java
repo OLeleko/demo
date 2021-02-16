@@ -18,14 +18,14 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 public class MealControllerTest extends AbstractControllerTest {
 
-    private static final String REST_MEAL_URL = "/admin/meals" + '/';
+    private static final String REST_MEAL_URL = "/admin/meals";
 
     @Autowired
     private MealService service;
 
     @Test
     public void findById() throws Exception {
-        perform(MockMvcRequestBuilders.get(REST_MEAL_URL + MEAL_ID)
+        perform(MockMvcRequestBuilders.get(REST_MEAL_URL + '/' + MEAL_ID)
                 .with(userHttpBasic(admin1)))
                 .andExpect(status().isOk())
                 .andDo(print())
@@ -36,7 +36,7 @@ public class MealControllerTest extends AbstractControllerTest {
     @Test
     public void create() throws Exception {
         Meal newMeal = MealTestData.getNew();
-        ResultActions action = perform(MockMvcRequestBuilders.post(REST_MEAL_URL + MEAL_ID)
+        ResultActions action = perform(MockMvcRequestBuilders.post(REST_MEAL_URL + "?menuId=" + MEAL_ID)
                 .contentType(MediaType.APPLICATION_JSON)
                 .with(userHttpBasic(admin1))
                 .content(writeValue(newMeal)))

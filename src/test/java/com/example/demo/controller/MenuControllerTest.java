@@ -39,12 +39,14 @@ public class MenuControllerTest extends AbstractControllerTest {
     @Test
     public void create() throws Exception {
         Menu newMenu = MenuTestData.getNew();
-        ResultActions action = perform(MockMvcRequestBuilders.post(REST_MENU_URL + "?restaurant_id=" + RESTAURANT_ID)
+        ResultActions action = perform(MockMvcRequestBuilders.post(REST_MENU_URL + "?restaurantId=" + RESTAURANT_ID)
                 .contentType(MediaType.APPLICATION_JSON)
                 .with(userHttpBasic(admin1))
                 .content(writeValue(newMenu)))
                 .andExpect(status().isCreated())
                 .andDo(print());
+                /*.andExpect(jsonPath("$.id").isNumber())
+                .andExpect(jsonPath("$.regist_date").isNotEmpty());*/
         Menu created = readFromJson(action, Menu.class);
         int newId = created.id();
         newMenu.setId(newId);
