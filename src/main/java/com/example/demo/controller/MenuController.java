@@ -42,8 +42,8 @@ public class MenuController {
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Menu> create(@RequestBody Menu menu, @RequestParam int restaurant_id) {
-        Menu created = service.create(menu, restaurant_id);
+    public ResponseEntity<Menu> create(@RequestBody Menu menu, @RequestParam int restaurantId) {
+        Menu created = service.create(menu, restaurantId);
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path("/menus/{id}")
                 .buildAndExpand(created.getId()).toUri();

@@ -34,47 +34,45 @@ public class VoteService {
     private String time_vote;
 
     @Transactional
-    public Vote create(Vote vote, int menu_id, int user_id) {
-        if (!vote.isNew()) {
-            return null;
-        }
-        User user = userRepository.getOne(user_id);
-        Menu menu = menuRepository.getById(menu_id);
+    public Vote create(int menuId, int userId) {
+        Vote vote = new Vote();
+        User user = userRepository.getOne(userId);
+        Menu menu = menuRepository.getById(menuId);
         vote.setUser(user);
         vote.setMenu(menu);
         vote.setVote_date(LocalDate.now());
         return voteRepository.save(vote);
     }
 
-    public Vote findById(int id, int user_id) {
-        return voteRepository.getById(id, user_id);
+    public Vote findById(int id, int userId) {
+        return voteRepository.getById(id, userId);
     }
 
-    public Vote findByDate(LocalDate date, int user_id) {
-        return voteRepository.getByDate(date, user_id);
+    public Vote findByDate(LocalDate date, int userId) {
+        return voteRepository.getByDate(date, userId);
     }
 
     @Transactional
-    public Vote update(int menu_id, int user_id) {
+    public Vote update(int menuId, int userId) {
         LocalTime time = LocalTime.parse(time_vote);
         if (LocalTime.now().isAfter(time)) {
             throw new LateUpdateException("It's too late to update vote for today.");
         }
-        Vote vote = findByDate(LocalDate.now(), user_id);
-        Menu menu = menuRepository.getById(menu_id);
+        Vote vote = findByDate(LocalDate.now(), userId);
+        Menu menu = menuRepository.getById(menuId);
         vote.setMenu(menu);
         return vote;
     }
 
-    public List<Vote> findAll(int user_id) {
-        return voteRepository.getAll(user_id);
+    public List<Vote> findAll(int userId) {
+        return voteRepository.getAll(userId);
     }
 
-    public List<Vote> findBetween(LocalDate start_date, LocalDate end_date, int user_id) {
-        return voteRepository.getBetween(start_date, end_date, user_id);
+    public List<Vote> findBetween(LocalDate start_date, LocalDate end_date, int userId) {
+        return voteRepository.getBetween(start_date, end_date, userId);
     }
 
-    public void delete(int id, int user_id) {
-        checkNotFoundWithId(voteRepository.delete(id, user_id), id);
+    public void delete(int id, int userId) {
+        checkNotFoundWithId(voteRepository.delete(id, userId), id);
     }
 }

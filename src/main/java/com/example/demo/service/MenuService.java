@@ -26,13 +26,12 @@ public class MenuService {
 
     @Transactional
     @CacheEvict(value = "findByDate", allEntries = true)
-    public Menu create(Menu menu, int restaurant_id) {
+    public Menu create(Menu menu, int restaurantId) {
         if (!menu.isNew()) {
             return null;
         }
-        Restaurant rest = restaurantRepository.getOne(restaurant_id);
+        Restaurant rest = restaurantRepository.findById(restaurantId).orElse(null);
         menu.setRestaurant(rest);
-        menu.setRestaurant_name(rest.getName());
         return menuRepository.save(menu);
     }
 

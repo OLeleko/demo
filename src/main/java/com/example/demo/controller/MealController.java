@@ -30,9 +30,9 @@ public class MealController {
         return result;
     }
 
-    @PostMapping(value = "/{menu_id}", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Meal> create(@RequestBody Meal meal, @PathVariable int menu_id) {
-        Meal created = service.create(meal, menu_id);
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Meal> create(@RequestBody Meal meal, @RequestParam int menuId) {
+        Meal created = service.create(meal, menuId);
         URI uriOfNewResorce = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path("/meals/{id}")
                 .buildAndExpand(created.getId()).toUri();
