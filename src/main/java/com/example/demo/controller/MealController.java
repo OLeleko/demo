@@ -24,7 +24,7 @@ public class MealController {
     @GetMapping("/{id}")
     public Meal findById(@PathVariable int id) {
         Meal result = service.findById(id);
-        if(result == null){
+        if (result == null) {
             throw new NotFoundException("Object not found");
         }
         return result;
